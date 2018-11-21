@@ -1,0 +1,44 @@
+no - 2323232323
+
+
+member
+Gaurav , 46 , male , salaried (18 aug 1972) 29 oct 1972
+Deepa , 41 , female , salaried (28 feb 1977) 29 oct 1977
+Raima - 7 year , daughter , (9 nov 2011) 29 oct 2011
+
+goal  (debt_ratio: 0.8 , equity_ratio: 0.2,min_sip - 5000, risk -40 , aggresive)
+raima marraige , oct-2039 , pv - 25,00,000 , fv- 1.23 Cr (age-28)
+Raima education  - india , medicine , UG , age-18 , pv- 50,87,980 , fv - 1.17 Cr , oct-2029
+Raima education  - UK , medicine , PG , age-24 , pv - 55,37,920 , fv - 2.01 Cr , oct-2035
+
+asset
+property 1 - 6,50,00,000 , self
+property 2 - 70,00,000 , rent - 17000
+cash - 15,00,000
+gold - 2,00,000
+Equity Mutual - 1,42,00,000
+Bonds & Debt  - 45,00,000
+
+loan - nothing
+
+expense
+food - 87,500
+bill - 70,000
+transpotation-  70,000
+leisure - 52,500
+healthcare - 70000
+
+
+income 
+self - 3,00,000 , pf - 30,000
+spouse - 2,00,000 , pf - 20,000
+
+
+
+isurance 
+li- 1,12,00,000 , 1,00,00,000
+hi - 15,00,000
+
+risk 
+buy_more , do nothng 
+
