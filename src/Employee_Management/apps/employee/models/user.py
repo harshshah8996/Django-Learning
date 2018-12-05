@@ -1,8 +1,10 @@
 from django.db import models
 from django.core.validators import RegexValidator
+
 from Employee_Management.apps.common import constant as constant
 
 class UserModel(models.Model):
+
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     gender = models.CharField(choices=constant.GENDER_CHOICES,max_length=1)
