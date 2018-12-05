@@ -8,3 +8,7 @@ ROLE_CHOICES = (
     ('HR','HR'),
     ('Developer','Developer')
 )
+
+Admin = 'Admin'
+HR = 'HR'
+Developer = 'Developer'
