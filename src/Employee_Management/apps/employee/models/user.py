@@ -6,7 +6,7 @@ from django.utils import timezone
 from Employee_Management.apps.common import constant as constant
 
 
-class UserManager(BaseUserManager,models.Manager):
+class UserManager(BaseUserManager):
 
     def create_user(self,user_data):
         user = self.model(
@@ -18,34 +18,13 @@ class UserManager(BaseUserManager,models.Manager):
             role = user_data.get('role'),
             mobile_no = user_data.get('mobile_no'),
             password = user_data.get('password'),
+            created_by = user_data.get('created_by'),
+            updated_by = user_data.get('updated_by'),
         )
 
         user.set_password(user.password)
         user.save(using=self._db)
         return user
-
-    def update_user(self,user_obj,user_data):
-
-        user_obj.first_name = user_data.get('first_name')
-        user_obj.last_name = user_data.get('last_name')
-        user_obj.gender = user_data.get('gender')
-        user_obj.dob = user_data.get('dob')
-        user_obj.email = user_data.get('email')
-        user_obj.role = user_data.get('role')
-        user_obj.mobile_no = user_data.get('mobile_no')
-        user_obj.updated_by = user_obj.id
-
-        user_obj.save(using=self._db)
-        return user_obj
-
-
-    def delete_user(self,user_obj,deleted_by):
-        user_obj.is_delete = 1
-        user_obj.deleted_at = timezone.now()
-        user_obj.deleted_by = deleted_by
-
-        user_obj.save(using=self._db)
-        return user_obj
 
 
     # def get_queryset(self):
@@ -86,3 +65,25 @@ class UserModel(AbstractBaseUser):
     def __str__(self):
         return self.first_name
     
+
+    def update_user(self,user_data):
+
+        self.first_name = user_data.get('first_name')
+        self.last_name = user_data.get('last_name')
+        self.gender = user_data.get('gender')
+        self.dob = user_data.get('dob')
+        self.email = user_data.get('email')
+        self.role = user_data.get('role')
+        self.mobile_no = user_data.get('mobile_no')
+
+        self.save()
+        return self
+
+
+    def delete_user(self,user_master):
+        self.is_delete = True
+        self.deleted_at = timezone.now()
+        self.deleted_by = user_master
+
+        self.save()
+        return self
