@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from Employee_Management.apps.employee.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/employee/',include('Employee_Management.apps.employee.urls'))
+    path('api/employee/',include('Employee_Management.apps.employee.urls')),
+    path('login/',LoginView.as_view()),
 ]
