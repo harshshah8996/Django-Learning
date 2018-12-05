@@ -20,23 +20,53 @@ class UserListView(APIView):
     
 
     def post(self,request):
-        user_data = request.data
-        user_ser = UserSerializer(data=user_data)
+
+        user_ser = UserSerializer(data=request.data)
+
         if user_ser.is_valid():
-            user_ser.save()
-            return Response({'message':'success'},status=status.HTTP_200_OK)
+            user_obj = UserModel.objects.create_user(request.data)
+            user_data = UserSerializer(user_obj).data
+            return Response({'message':'Success','data' : user_data },status=status.HTTP_200_OK)
         else:
-            return Response({'message':'Error'},status=status.HTTP_406_NOT_ACCEPTABLE)
+            return Response({'message':user_ser.errors},status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 class UserDetailView(APIView):
 
+    permission_classes = (AllowAny,)
+
     def get(self,request,id):
-        pass
+
+        user_obj = UserModel.objects.filter(pk=id).first()
+        if not user_obj:
+            return Response({'message':'User is not exist'},status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        user_data = UserSerializer(user_obj).data
+        return Response({'message':'Success','data' : user_data },status=status.HTTP_200_OK)
+
     
     def put(self,request,id):
-        pass
+
+        user_obj = UserModel.objects.filter(pk=id).first()
+        if not user_obj:
+            return Response({'message':'User is not exist'},status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        user_ser = UserSerializer(user_obj,data=request.data)
+
+        if user_ser.is_valid():
+            user_obj = UserModel.objects.update_user(user_obj,request.data)
+            user_data = UserSerializer(user_obj).data
+            return Response({'message':'Upated','data' : user_data },status=status.HTTP_200_OK)
+        else:
+            return Response({'message':user_ser.errors},status=status.HTTP_406_NOT_ACCEPTABLE)
+
 
     def delete(self,request,id):
-        pass
-    
+        user_obj = UserModel.objects.filter(pk=id).first()
+        if not user_obj:
+            return Response({'message':'User is not exist'},status=status.HTTP_406_NOT_ACCEPTABLE)
+        # delete_by = request.user.id
+        delete_by = None
+        user_obj = UserModel.objects.delete_user(user_obj,delete_by)
+
+        return Response({'message':'Deleted'},status=status.HTTP_200_OK)
