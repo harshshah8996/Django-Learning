@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from Employee_Management.apps.employee.views import LoginView
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/employee/',include('Employee_Management.apps.employee.urls')),
     path('login/',LoginView.as_view()),
+    path('api-token-auth/',obtain_jwt_token),
 ]

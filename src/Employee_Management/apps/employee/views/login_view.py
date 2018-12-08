@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
 
+import requests,json
+
 class LoginView(APIView):
 
     permission_classes = (AllowAny,)
@@ -14,6 +16,14 @@ class LoginView(APIView):
         user_obj = authenticate(email=email,password=password)
 
         if user_obj:
-            return Response({'message':('Hello , %s',user_obj.first_name)},status=status.HTTP_200_OK)
+            payload = {
+                'email' : email,
+                'password':password
+            }
+            
+            jwt_response = requests.post('http://localhost:7000/api-token-auth/',data=payload)
+            response = json.loads(jwt_response.text)
+            return Response({'data':response['token'],'message':('Welcome ' + str(user_obj.first_name))},status=status.HTTP_200_OK)
+        
         else:
             return Response({'message':'Please Enter Valid Email & Password'},status=status.HTTP_406_NOT_ACCEPTABLE)
